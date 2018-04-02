@@ -16,4 +16,3 @@ In this exercise you will create a command-line program to watch for text files 
 •	Use multiple threads so that the program doesn't block on a single large or locked file.
 •	Program will be run on Windows 10.
 •	File names are case insensitive.
-
