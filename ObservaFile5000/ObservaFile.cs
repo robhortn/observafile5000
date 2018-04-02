@@ -11,7 +11,6 @@ namespace ObservaFile5000
     {
         readonly string _monitoredDirectory;
         readonly string _monitoredExtension;
-        private int _counter = 0;
 
         public ObservaFile(string dir, string ext)
         {
@@ -19,15 +18,16 @@ namespace ObservaFile5000
             _monitoredExtension = ext;
 
             Thread t = new Thread(new ParameterizedThreadStart(ThreadLoop));
+            Console.WriteLine($"Application starting at {Helpers.GetNowWithDate()}");
+            var logPeekWhere = $"Scanning {_monitoredDirectory} for changes in files of type {_monitoredExtension} {Environment.NewLine}";
+            Console.WriteLine(logPeekWhere);
 
             t.Start((Action)PerformPeekNow);
         }
 
         private void PerformPeekNow() {
-            _counter += 1;
-            Console.WriteLine($"_counter says {_counter}");
-            Console.WriteLine($"_monitoredDirectory says {_monitoredDirectory}");
-            Console.WriteLine($"_monitoredExtension says {_monitoredExtension}");
+            var peekNowMsg = $"{Helpers.GetNow()} scanning for changes ...";
+            Console.WriteLine(peekNowMsg);
         }
 
         private void ThreadLoop(object callback)

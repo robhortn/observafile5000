@@ -32,5 +32,15 @@ namespace ObservaFile5000
         public static bool IsDirectoryValid(string dir) {
             return Directory.Exists(dir);
         }
+
+        public static string GetNow() {
+            return DateTime.Now.ToString("h:mm:ss");
+        }
+
+        public static string GetNowWithDate()
+        {
+            return DateTime.Now.ToString("MM-dd-yyyy");
+        }
+
     }
 }
