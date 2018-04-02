@@ -11,7 +11,15 @@ namespace ObservaFile5000
                 return;
             }
 
-            var app = new ObservaFile(args[0], args[1]);
+            var directory = args[0];
+            var extension = args[1];
+
+            if (Helpers.IsDirectoryValid(directory) == false) {
+                Console.WriteLine(Helpers.InvalidFileDirectory());
+                return;
+            }
+
+            var app = new ObservaFile(directory, extension);
         }
     }
 }
