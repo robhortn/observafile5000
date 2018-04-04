@@ -35,5 +35,18 @@ namespace ObservaFile5000
             if (value == null) return string.Empty;
             return Regex.Replace(value, @"[^\d]", "");
         }
+        
+        private static string FormatPhone(string phone)
+        {
+            if (string.IsNullOrEmpty(phone))
+                return phone;
+
+            var numeric = new string(phone.Where(c => char.IsDigit(c)).ToArray());
+            if (numeric.Length != 10)
+                return phone;
+
+            var reformatted = String.Format("{0:(###) ###-####}", numeric);
+            return reformatted;
+        }
     }
 }
