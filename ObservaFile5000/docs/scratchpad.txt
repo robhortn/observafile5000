@@ -30,6 +30,7 @@ namespace Extensions
         static Func<string, string> convertUsingAnonymous = delegate (string s) { return s.ToUpper(); };
         static Func<string, string> convertMethod = UppercaseString;
         static Func<int, string> convertIntToString = delegate (int i) { return i.ToString(); };
+        static Func<string[], List<string>> convertToStringList = delegate (string[] s) { return s.ToList(); };
 
         static Func<int, string, string[]> createStringArray = delegate (int n, string str) {
             List<string> results = new List<string>();
@@ -72,22 +73,28 @@ namespace Extensions
             var results1 = FuncExample_Worker("Frank", SearchHuman);
             var results2 = FuncExample_Worker("Oriole", SearchBird);
 
-            var totalResults = results.ToList().Concat(results1.ToList().Concat(results2.ToList()));
+            outputToConsole(results, results1, results2);
 
+            var totalResults = results.ToList();
+            totalResults.Concat(results1.ToList());
+            totalResults.Concat(results2.ToList());
+
+            Console.WriteLine("totalResults says: ");
             foreach (var item in totalResults)
             {
                 Console.WriteLine(item);
             }
-
         }
 
-        static Func<string[], bool> outputToConsole = delegate (string[] items) {
-            if (items == null || items.Count() == 0) return false;
-            foreach (var item in items)
-            {
-                Console.WriteLine(item);
-            }
-            return true;
+        static Action<string[], string[], string[]> outputToConsole = delegate (string[] items, string[] items1, string[] items2) {
+            if (items == null || items.Count() == 0) return;
+            if (items1 == null || items2.Count() == 0) return;
+            if (items1 == null || items2.Count() == 0) return;
+
+            Console.WriteLine("In outputToConsole()");
+            foreach (var item in items) { Console.WriteLine(item); }
+            foreach (var item in items1) { Console.WriteLine(item); }
+            foreach (var item in items2) { Console.WriteLine(item); }
         };
 
         private static string[] FuncExample_Worker(string request, Func<string, string[]> GetResults) {
