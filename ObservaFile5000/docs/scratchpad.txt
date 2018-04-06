@@ -21,6 +21,8 @@ namespace Extensions
             
             RunFuncs();
 
+            FuncExampleEntry();
+
             Console.ReadLine();
         }
 
@@ -63,6 +65,54 @@ namespace Extensions
         private static string UppercaseString(string inputString)
         {
             return inputString.ToUpper();
+        }
+
+        private static void FuncExampleEntry() {
+            var results = FuncExample_Worker("Rocky Road", SearchForIceCream);
+            var results1 = FuncExample_Worker("Frank", SearchHuman);
+            var results2 = FuncExample_Worker("Oriole", SearchBird);
+
+            var totalResults = results.ToList().Concat(results1.ToList().Concat(results2.ToList()));
+
+            foreach (var item in totalResults)
+            {
+                Console.WriteLine(item);
+            }
+
+        }
+
+        static Func<string[], bool> outputToConsole = delegate (string[] items) {
+            if (items == null || items.Count() == 0) return false;
+            foreach (var item in items)
+            {
+                Console.WriteLine(item);
+            }
+            return true;
+        };
+
+        private static string[] FuncExample_Worker(string request, Func<string, string[]> GetResults) {
+            var results = GetResults(request);
+            return results;
+        }
+
+        private static string[] SearchForIceCream(string searchfor) {
+            string[] mockDb = new string[] { "Chunky Monkey", "Neopolitan", "Rocky Road", "Chocolate", "Vanilla", "Strawberry" };
+            string[] results = mockDb.Where(x => x == searchfor).ToArray();
+            return results;
+        }
+
+        private static string[] SearchHuman(string searchfor)
+        {
+            string[] mockDb = new string[] { "Joseph", "Bob", "Larry", "John", "Michael", "Frank" };
+            string[] results = mockDb.Where(x => x == searchfor).ToArray();
+            return results;
+        }
+
+        private static string[] SearchBird(string searchfor)
+        {
+            string[] mockDb = new string[] { "Sparrow", "Bluejay", "Oriole", "Owl", "Hawk", "Wren" };
+            string[] results = mockDb.Where(x => x == searchfor).ToArray();
+            return results;
         }
     }
 }
