@@ -1,7 +1,7 @@
 ﻿========================================================================
 Home Coding Exercise
 You may use C#, VB, or Java to implement the project. Zip up your implementation sources into a single file.
------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------
  
 In this exercise you will create a command-line program to watch for text files to be created or modified in a directory and then output information about them.
 •	The program takes 2 arguments, the directory to watch and a file pattern, example: program.exe "c:\file folder" *.txt
