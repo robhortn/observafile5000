@@ -1,0 +1,68 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Extensions
+{
+    class Program
+    {
+        delegate string ConvertMethod(string inString);
+
+        static void Main(string[] args)
+        {
+            string[] src = new string[] { "563-452-3805", null, "5634523837", "13159465232", "+113159465232", "+222453159465232" };
+
+            foreach (string value in src)
+            {
+                Console.WriteLine($"Formatted version of {value} is {value.ToPhoneNumber()}");
+            }
+            
+            RunFuncs();
+
+            Console.ReadLine();
+        }
+
+        static Func<string, string> convertUsingLambda = s => s.ToUpper(); 
+        static Func<string, string> convertUsingAnonymous = delegate (string s) { return s.ToUpper(); };
+        static Func<string, string> convertMethod = UppercaseString;
+        static Func<int, string> convertIntToString = delegate (int i) { return i.ToString(); };
+
+        static Func<int, string, string[]> createStringArray = delegate (int n, string str) {
+            List<string> results = new List<string>();
+            for (int i = 0; i < n; i++)
+            {
+                results.Add(str + i.ToString());
+            }
+            return results.ToArray();
+        };
+        
+        static void RunFuncs() {
+            https://msdn.microsoft.com/en-us/library/bb549151(v=vs.110).aspx
+
+            string name = "Dakota";
+            Console.WriteLine(convertUsingLambda(name));
+            Console.WriteLine(convertUsingAnonymous(name));
+
+            // Instantiate delegate to reference UppercaseString method
+            ConvertMethod convertMethod = UppercaseString;
+            
+            // Use delegate instance to call UppercaseString method
+            Console.WriteLine(convertMethod(name));
+
+            Console.WriteLine($"Converting 1 to a string says: {convertIntToString(1)}");
+
+            string[] results = createStringArray(4, "mystring");
+            foreach (var item in results)
+            {
+                Console.WriteLine(item);
+            }
+        }
+
+        private static string UppercaseString(string inputString)
+        {
+            return inputString.ToUpper();
+        }
+    }
+}
